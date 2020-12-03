@@ -8,4 +8,6 @@ The installation file (install.php) is currently not working. Only tested on Mac
   - ➖ One Game at a Time (Per Server)
   - ➖ No Emergency Meetings
   
-Original Art 2020 © South Seventh Software, LLC
+The original artwork in this project is by South Seventh Software, LLC.
+
+Copyright (C) 2020 South Seventh Software, LLC
