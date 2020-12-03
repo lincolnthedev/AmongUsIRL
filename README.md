@@ -7,3 +7,5 @@ The installation file (install.php) is currently not working. Only tested on Mac
   - ➕ Player Interface
   - ➖ One Game at a Time (Per Server)
   - ➖ No Emergency Meetings
+  
+Original Art 2020 © South Seventh Software, LLC
