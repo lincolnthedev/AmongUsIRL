@@ -10,4 +10,4 @@ sleep(3);
 
 echo("\n" . 'Starting Server...' . "\n\n\n");
 
-exec('php -S localhost:8000 -t app/');
+exec('php -S 0.0.0.0:80 -t app/');

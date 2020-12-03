@@ -1,5 +1,13 @@
 <?php
 
+require "vendor/autoload.php";
+Predis\Autoloader::register();
+
+$redis = new Predis\Client(array(
+    "scheme" => "tcp",
+    "host" => "localhost",
+    "port" => 6379));
+
 echo('
 <head>
     <title>Among Us IRL</title>
@@ -39,6 +47,14 @@ echo('
     	top:1px;
     }
 </style>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function() {
+            $("#data").load("hostData.php");
+        }, 3000);
+    });
+</script>
 ');
 
 
@@ -47,18 +63,8 @@ echo('
 
 echo('<center><br><br>');
 
-
-
-echo('<h1 style="font-size:100px">Among Us <b>IRL</b></h1>');
-echo('<h3 style="margin-top:-3rem">by @lincolnthedev</h3>');
-
-echo('<br><br><br>
-<form action="join.php" method="get">
-<input type="text" id="myname" name="myname" placeholder="Your Name"><br><br>
-<button type="submit" class="playButton">Play</button>
-<br><br><br>');
-echo('<a href="host.php" style="color:ffa500">Host Game</a>');
-
-
+echo('<h1 style="font-size:50px">Among Us <b>IRL</b></h1>');
+echo('<p>Host</p>');
+echo('<div id="data"></div>');
 
 echo('</center>');

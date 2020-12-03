@@ -1,6 +1,6 @@
 <?php
 
-require "predis/autoload.php";
+require "vendor/autoload.php";
 Predis\Autoloader::register();
 
 $redis = new Predis\Client(array(
@@ -47,14 +47,6 @@ echo('
     	top:1px;
     }
 </style>
-
-<script>
-    $(document).ready(function(){
-        setInterval(function() {
-            $("#data").load("joinData.php");
-        }, 3000);
-    });
-</script>
 ');
 
 
@@ -64,6 +56,84 @@ echo('
 echo('<center><br><br>');
 
 echo('<h1 style="font-size:50px">Among Us <b>IRL</b></h1>');
-echo('');
+
+
+
+
+
+if ( isset($_GET['myname']) and $_GET['myname'] !== '' ) {
+
+
+
+
+
+if ( $redis->get('gameStatus') == 'notstarted' ) {
+
+    echo('<h3>There ' . "isn't " . 'a game in progress at the moment.<br>Please wait for the host to start the game.<br></h3>');
+    echo ('<meta http-equiv="refresh" content="3">');
+
+}
+
+
+
+if ( $redis->get('gameStatus') == 'starting' ) {
+
+    echo("<h3>Game Available! You're ready to go, " . $_GET['myname'] . "!</h3><br><br>");
+
+    $redis->sadd('players', $_GET['myname']);
+
+    echo('<h3>Please wait for the host to start the game.</h3>');
+
+    echo ('<meta http-equiv="refresh" content="2">');
+
+}
+
+
+
+if ( $redis->get('gameStatus') == 'inProgress' ) {
+
+    echo("<h3>Game in Progress!</h3><br>");
+
+    if ( $_GET['myname'] == $redis->get('impostor') ) {
+        echo('You are <u>IMPOSTOR</u>!<br><br>');
+    } else {
+        echo('You are <u>CREWMATE</u>!<br><br>');
+    }
+
+    echo('<u>Players</u><br>');
+    foreach ($redis->smembers("players") as $player) {
+        if ( $redis->sismember('deadPlayers', $player) ) {
+            echo("<s>" . $player . "</s>" . ' DEAD!<br>');
+        } else {
+            echo($player . '<br>');
+        }
+    }
+
+    echo('<br><br>');
+
+    if(array_key_exists('meDead', $_POST)) {
+            echo('<h1>:(</h1>');
+            $redis->sadd("deadPlayers", $_GET['myname']);
+        }
+
+    if ( $_GET['myname'] !== $redis->get('impostor') ) {
+    echo('
+        <form method="post">
+            <input type="submit" name="meDead" class="button" value="Report Yourself as Dead" /><br>
+        </form>
+    ');
+    }
+
+    echo ('<meta http-equiv="refresh" content="2">');
+
+}
+
+} else {
+    echo('<h3>Your name must be included in the URL!</h3>');
+}
+
+echo('Among Us IRL is an original piece of software by @lincolnthedev');
+
+
 
 echo('</center>');
