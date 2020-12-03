@@ -1,2 +1,7 @@
 # AmongUsIRL
-Among Us IRL (Built with PHP)
+
+Features and Limitations
+  - ➕ Host Interface
+  - ➕ Player Interface
+  - ➖ One Game
+  - ➖ No Emergency Meetings
