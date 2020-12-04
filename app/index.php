@@ -49,6 +49,7 @@ echo('<center><br><br>');
 
 
 
+echo('<img src="resources/artwork.jpeg" height="325" width="240" style="margin-bottom:-4.5rem">');
 echo('<h1 style="font-size:100px">Among Us <b>IRL</b></h1>');
 echo('<h3 style="margin-top:-3rem">by @lincolnthedev</h3>');
 
